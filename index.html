@@ -1825,7 +1825,28 @@ window.addEventListener('scroll', function() {
     }
 });
 backToTop.addEventListener('click', function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Ripple burst on the button
+    backToTop.style.transform = 'scale(0.88)';
+    setTimeout(function() { backToTop.style.transform = ''; }, 180);
+
+    // Custom eased scroll (much smoother than native smooth)
+    const start = window.scrollY;
+    const duration = Math.min(start * 0.4, 900); // faster from close, slower from far
+    const startTime = performance.now();
+
+    function easeInOutQuart(t) {
+        return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+    }
+
+    function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        window.scrollTo(0, start * (1 - easeInOutQuart(progress)));
+        if (progress < 1) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+});
 });
         /* ===== NAV CLICK SECTION ANIMATION ===== */
         document.querySelectorAll('.nav-links a').forEach(function(link) {

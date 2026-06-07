@@ -13,10 +13,21 @@
     <link rel="manifest" href="site.webmanifest">
     <meta name="theme-color" content="#F5F4F0" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
+    <!-- ===== OPEN GRAPH ===== -->
+    <meta property="og:title" content="Odong Stephen | Biomedical Engineer &amp; Health-Tech Innovator">
+    <meta property="og:description" content="Biomedical Engineering student at MUST, Uganda. Building healthcare technologies for underserved communities through medical imaging, AI, AR/VR, and telemedicine.">
+    <meta property="og:image" content="https://Stephstar.github.io/updated-profile.png">
+    <meta property="og:url" content="https://Stephstar.github.io">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Odong Stephen | Biomedical Engineer &amp; Health-Tech Innovator">
+    <meta name="twitter:description" content="Building healthcare technologies for underserved communities.">
+    <meta name="twitter:image" content="https://Stephstar.github.io/updated-profile.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
     <style>
         /* ===== RESET & BASE ===== */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -186,11 +197,23 @@
             justify-content: space-between;
         }
         .nav-logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.25rem;
-            letter-spacing: -0.5px;
-            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--border);
+            transition: border-color 0.3s ease;
+            flex-shrink: 0;
+        }
+        .nav-logo:hover { border-color: var(--accent); }
+        .nav-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
         }
         .nav-links {
             display: flex;
@@ -1026,14 +1049,125 @@
     transform: translateY(-3px);
 }
 #backToTop svg { width: 18px; height: 18px; }
+
+        /* ===== READING PROGRESS BAR ===== */
+        #readingProgress {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent);
+            z-index: 10000;
+            transition: width 0.1s linear;
+            border-radius: 0 2px 2px 0;
+        }
+
+        /* ===== PROJECT MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 5000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+        .modal-overlay.open { opacity: 1; visibility: visible; }
+        .modal {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            max-width: 680px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            transform: translateY(24px) scale(0.97);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+        .modal-image {
+            width: 100%; height: 220px;
+            background: var(--bg-secondary);
+            border-radius: 16px 16px 0 0;
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; font-weight: 700;
+            color: var(--text-muted);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .modal-body { padding: 32px; }
+        .modal-close {
+            position: absolute; top: 16px; right: 16px;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            z-index: 1;
+        }
+        .modal-close:hover { background: var(--accent); color: var(--bg-primary); border-color: var(--accent); }
+        .modal-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+        .modal-status {
+            display: inline-block; font-size: 0.8rem;
+            padding: 3px 10px; border-radius: 100px;
+            background: var(--tag-bg); color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+        .modal-desc { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; margin-bottom: 20px; }
+        .modal-section-label {
+            font-size: 0.75rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.08em;
+            color: var(--text-muted); margin-bottom: 8px; margin-top: 20px;
+        }
+        .modal-tech { display: flex; flex-wrap: wrap; gap: 8px; }
+        .modal-tech span {
+            padding: 4px 12px; border-radius: 100px;
+            background: var(--tag-bg); font-size: 0.8rem; color: var(--text-secondary);
+        }
+        .modal-meta-grid { display: grid; gap: 12px; margin-top: 8px; }
+        .modal-meta-item {
+            background: var(--bg-secondary); border-radius: 10px;
+            padding: 14px 16px; font-size: 0.875rem;
+            color: var(--text-secondary); line-height: 1.6;
+        }
+        .modal-meta-item strong {
+            color: var(--accent); display: block; margin-bottom: 4px;
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .project-view-btn {
+            margin-top: 16px;
+            padding: 8px 20px;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            width: 100%;
+        }
+        .project-view-btn:hover { border-color: var(--accent); color: var(--accent); }
     </style>
 </head>
 <body>
+    <div id="readingProgress"></div>
 
     <!-- ===== NAVIGATION ===== -->
     <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
-            <a href="#" class="nav-logo">OS</a>
+            <a href="#" class="nav-logo"><img src="newer.png" alt="Odong Stephen"></a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -1066,7 +1200,7 @@
             <h1 class="hero-title">
                 <span class="static-headline">Engineering Health.</span>
                 <span class="rotating-wrapper">
-                    <span class="rotating-headline" id="rotatingHeadline">Building Impact.</span>
+                    <span id="typedHeadline"></span>
                 </span>
             </h1>
             <p class="hero-tagline" id="heroTagline">Designing technologies that bring quality healthcare to underserved communities.</p>
@@ -1235,7 +1369,9 @@
             <h2 class="section-title section-title-center reveal">Projects</h2>
             <div class="projects-grid stagger-children" id="projectsGrid">
                 <div class="project-card">
-                    <div class="project-image">VR</div>
+                    <div class="project-image">
+                         <img src="vr.png" alt="VR for BME Education" style="width:100%;height:100%;object-fit:cover;opacity:1;">
+                    </div>
                     <div class="project-body">
                         <h3>VR for BME Education</h3>
                         <p class="project-desc">
@@ -1244,7 +1380,7 @@
                         <div class="project-tech">
                             <span>Unity</span>
                             <span>C#</span>
-                            <span>Oculus Integration</span>
+                            <span>XR Interaction Toolkit</span>
                             <span>3D Modeling</span>
                         </div>
                         <div class="project-meta">
@@ -1252,6 +1388,7 @@
                             <strong>Impact:</strong> Making BME education more engaging and accessible in Ugandan universities.<br>
                             <strong>Lesson:</strong> User testing is crucial; VR in education requires careful pedagogical design.
                         </div>
+                        <button class="project-view-btn" onclick="openModal('vr')">View Details →</button>
                     </div>
                 </div>
                 <div class="project-card">
@@ -1267,17 +1404,20 @@
                             <span>React</span>
                             <span>Node.js</span>
                             <span>WebRTC</span>
-                            <span>MongoDB</span>
+                            <span>PostgreSQL</span>
                         </div>
                         <div class="project-meta">
                             <strong>Problem:</strong> Rural patients travel long distances for basic consultations.<br>
                             <strong>Impact:</strong> Bridges the gap between rural patients and healthcare providers.<br>
                             <strong>Lesson:</strong> Offline-first considerations are critical where internet connectivity is unreliable.
                         </div>
+                        <button class="project-view-btn" onclick="openModal('telehealth')">View Details →</button>
                     </div>
                 </div>
                 <div class="project-card">
-                    <div class="project-image">PF</div>
+                    <div class="project-image">
+                         <img src="project.png" alt="Telehealth Pro" style="width:100%;height:100%;object-fit:cover;opacity:1;">
+                    </div>
                     <div class="project-body">
                         <h3>ProjectFlow</h3>
                         <p class="project-desc">
@@ -1294,6 +1434,7 @@
                             <strong>Impact:</strong> Improves project tracking, communication, and accountability between students and supervisors while reducing administrative overhead.<br>
                             <strong>Lesson:</strong> Successful project management tools must balance powerful functionality with simplicity, ensuring users can focus on research rather than learning complex software.
                         </div>
+                        <button class="project-view-btn" onclick="openModal('projectflow')">View Details →</button>
                     </div>
                 </div>
             </div>
@@ -1386,7 +1527,24 @@
             </div>
         </div>
     </section>
-<button id="backToTop" aria-label="Back to top">
+    <!-- ===== PROJECT MODAL ===== -->
+    <div class="modal-overlay" id="projectModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+            <div class="modal-image" id="modalImage"></div>
+            <div class="modal-body">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <span class="modal-status" id="modalStatus"></span>
+                <p class="modal-desc" id="modalDesc"></p>
+                <p class="modal-section-label">Tech Stack</p>
+                <div class="modal-tech" id="modalTech"></div>
+                <p class="modal-section-label">Problem &middot; Impact &middot; Lesson</p>
+                <div class="modal-meta-grid" id="modalMeta"></div>
+            </div>
+        </div>
+    </div>
+
+    <button id="backToTop" aria-label="Back to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="18 15 12 9 6 15"></polyline>
     </svg>
@@ -1641,6 +1799,16 @@
             });
         });
 
+        /* ===== MOBILE MENU — CLOSE ON OUTSIDE CLICK ===== */
+        document.addEventListener('click', function(e) {
+            if (navLinks.classList.contains('active') &&
+                !navLinks.contains(e.target) &&
+                !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
         /* ===== NAVBAR SCROLL EFFECT ===== */
         const navbar = document.getElementById('navbar');
 
@@ -1699,60 +1867,124 @@
 
         sections.forEach(function(s) { navObserver.observe(s); });
 
-        /* ===== ROTATING HEADLINES & TAGLINES ===== */
-        const headlines = [
-            'Building Impact.',
-            'For a Healthier Africa.',
-            'Where Care Meets Code.',
-            'One Solution at a Time.',
-            'The Future of Health, Built Today.'
-        ];
+        /* ===== TYPED.JS HERO HEADLINE ===== */
+        new Typed('#typedHeadline', {
+            strings: [
+                'Building Impact.',
+                'For a Healthier Africa.',
+                'Where Care Meets Code.',
+                'One Solution at a Time.',
+                'The Future of Health, Built Today.'
+            ],
+            typeSpeed: 55,
+            backSpeed: 30,
+            backDelay: 2200,
+            startDelay: 400,
+            loop: true,
+            showCursor: true,
+            cursorChar: '|'
+        });
 
+        /* ===== TAGLINE ROTATION ===== */
         const taglines = [
             'Designing technologies that bring quality healthcare to underserved communities.',
-            'Biomedical Engineering Student \u00B7 Health-Tech Innovator \u00B7 Future Researcher',
-            'From Mbarara to the world \u2014 building real solutions for real health challenges.',
-            'Medical imaging, AI, AR/VR, and digital health \u2014 engineering a healthier tomorrow.',
+            'Biomedical Engineering Student · Health-Tech Innovator · Future Researcher',
+            'From Mbarara to the world — building real solutions for real health challenges.',
+            'Medical imaging, AI, AR/VR, and digital health — engineering a healthier tomorrow.',
             'Passionate about using technology to close the healthcare gap in Uganda and beyond.'
         ];
-
-        let headlineIndex = 0;
         let taglineIndex = 0;
-        const headlineEl = document.getElementById('rotatingHeadline');
         const taglineEl = document.getElementById('heroTagline');
-
-        function rotateText() {
-            // Rotate headline
-            headlineIndex = (headlineIndex + 1) % headlines.length;
-            headlineEl.style.opacity = '0';
-            headlineEl.style.transform = 'translateY(-10px)';
-            setTimeout(function() {
-                headlineEl.textContent = headlines[headlineIndex];
-                headlineEl.style.opacity = '1';
-                headlineEl.style.transform = 'translateY(0)';
-            }, 300);
-
-            // Rotate tagline
+        taglineEl.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        setInterval(function() {
             taglineIndex = (taglineIndex + 1) % taglines.length;
             taglineEl.style.opacity = '0';
-            taglineEl.style.transform = 'translateY(-10px)';
+            taglineEl.style.transform = 'translateY(-8px)';
             setTimeout(function() {
                 taglineEl.textContent = taglines[taglineIndex];
                 taglineEl.style.opacity = '1';
                 taglineEl.style.transform = 'translateY(0)';
-            }, 300);
+            }, 400);
+        }, 4000);
+
+        /* ===== READING PROGRESS BAR ===== */
+        var progressBar = document.getElementById('readingProgress');
+        window.addEventListener('scroll', function() {
+            var scrollTop = window.scrollY;
+            var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            progressBar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+        });
+
+        /* ===== PROJECT MODAL ===== */
+        var projectData = {
+            vr: {
+                title: 'VR for BME Education',
+                status: 'In Development · Phase 2 of 4',
+                image: 'VR', imgSrc: null,
+                desc: 'A virtual reality platform designed to enhance biomedical engineering education through immersive 3D simulations, making complex anatomical concepts accessible in resource-constrained learning environments.',
+                tech: ['Unity', 'C#', 'Oculus Integration', '3D Modeling', 'XR Interaction Toolkit'],
+                problem: 'Limited access to cadavers and expensive lab equipment makes hands-on anatomy education difficult.',
+                impact: 'Making BME education more engaging and accessible, reducing dependence on costly physical resources.',
+                lesson: 'VR in education requires careful pedagogical design, not just technical execution.'
+            },
+            telehealth: {
+                title: 'Telehealth Pro',
+                status: 'Live · Active Development',
+                image: 'TP', imgSrc: 'telehealth.png',
+                desc: 'A comprehensive telemedicine web application featuring secure video consultations and electronic health records, designed for users with varying digital literacy levels in underserved communities.',
+                tech: ['React', 'Node.js', 'WebRTC', 'MongoDB', 'Supabase'],
+                problem: 'Rural patients in Uganda travel long distances for basic consultations, leading to delayed care.',
+                impact: 'Bridges the gap between rural patients and healthcare providers, reducing travel burden significantly.',
+                lesson: 'Offline-first design is non-negotiable in low-connectivity environments.'
+            },
+            projectflow: {
+                title: 'ProjectFlow',
+                status: 'Concept · Early Development',
+                image: 'PF', imgSrc: null,
+                desc: 'A project supervision platform that streamlines MSc and undergraduate research workflows, helping students organize milestones, track progress, and communicate effectively with supervisors.',
+                tech: ['React', 'Firebase', 'Node.js', 'Project Management'],
+                problem: 'Student research projects suffer from poor organization, missed deadlines, and limited supervisor visibility.',
+                impact: 'Improves tracking, communication, and accountability while reducing administrative overhead.',
+                lesson: 'Powerful tools must stay simple — users need to focus on their research, not on learning software.'
+            }
+        };
+
+        function openModal(key) {
+            var d = projectData[key];
+            if (!d) return;
+            var imgEl = document.getElementById('modalImage');
+            imgEl.innerHTML = d.imgSrc
+                ? '<img src="' + d.imgSrc + '" alt="' + d.title + '">'
+                : d.image;
+            document.getElementById('modalTitle').textContent = d.title;
+            document.getElementById('modalStatus').textContent = d.status;
+            document.getElementById('modalDesc').textContent = d.desc;
+            document.getElementById('modalTech').innerHTML = d.tech.map(function(t) {
+                return '<span>' + t + '</span>';
+            }).join('');
+            document.getElementById('modalMeta').innerHTML = [
+                { label: 'Problem', text: d.problem },
+                { label: 'Impact',  text: d.impact  },
+                { label: 'Lesson',  text: d.lesson  }
+            ].map(function(item) {
+                return '<div class="modal-meta-item"><strong>' + item.label + '</strong>' + item.text + '</div>';
+            }).join('');
+            document.getElementById('projectModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
         }
 
-        // Set initial text
-        headlineEl.textContent = headlines[0];
-        taglineEl.textContent = taglines[0];
+        function closeModal() {
+            document.getElementById('projectModal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
 
-        // Add transition styles dynamically
-        headlineEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-        taglineEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        document.getElementById('projectModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
 
-        // Rotate every 4 seconds
-        setInterval(rotateText, 4000);
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
 
         /* ===== TOAST ===== */
         const toast = document.getElementById('toast');
@@ -1877,8 +2109,7 @@ backToTop.addEventListener('click', function() {
         /* ===== OFFLINE STYLES FOR ROTATING TEXT ===== */
         /* Ensure rotating elements start visible */
         document.addEventListener('DOMContentLoaded', function() {
-            headlineEl.style.opacity = '1';
-            taglineEl.style.opacity = '1';
+            if (taglineEl) taglineEl.style.opacity = '1';
         });
     </script>
 

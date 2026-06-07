@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found | Odong Stephen</title>
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" sizes="any">
+    <link rel="icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        a { text-decoration: none; color: inherit; }
+
+        :root {
+            --bg-primary: #F5F4F0;
+            --text-primary: #141413;
+            --text-secondary: #4A4843;
+            --text-muted: #7A786E;
+            --accent: #6B685E;
+            --accent-hover: #55534A;
+            --border: #D1CFC6;
+            --card-bg: #FFFFFF;
+        }
+        [data-theme="dark"] {
+            --bg-primary: #141413;
+            --text-primary: #C9C8BF;
+            --text-secondary: #AFACA1;
+            --text-muted: #7A786E;
+            --accent: #BDBBB2;
+            --accent-hover: #D1CFC6;
+            --border: #2E2E2B;
+            --card-bg: #1C1C1A;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+        }
+
+        .wrapper { max-width: 520px; }
+
+        .code {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(6rem, 20vw, 10rem);
+            font-weight: 700;
+            line-height: 1;
+            color: var(--border);
+            letter-spacing: -4px;
+            margin-bottom: 8px;
+            user-select: none;
+        }
+
+        .title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1.5px solid var(--border);
+        }
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .divider {
+            width: 48px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+            margin: 24px auto 32px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="code">404</div>
+        <div class="divider"></div>
+        <h1 class="title">Page not found</h1>
+        <p class="desc">
+            This page doesn't exist — or maybe it moved.<br>
+            Either way, let's get you back on track.
+        </p>
+        <div class="actions">
+            <a href="/" class="btn btn-primary">← Back to Home</a>
+            <a href="/#projects" class="btn btn-secondary">View Projects</a>
+        </div>
+    </div>
+
+    <script>
+        // Respect saved theme preference
+        (function() {
+            var saved = localStorage.getItem('theme');
+            if (saved) document.documentElement.setAttribute('data-theme', saved);
+        })();
+    </script>
+</body>
+</html>
